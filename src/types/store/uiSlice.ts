@@ -1,0 +1,1 @@
+export type ModalStatus = "editing" | "adding" | "deleting" | "restoring" | undefined

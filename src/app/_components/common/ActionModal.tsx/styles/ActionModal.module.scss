@@ -1,0 +1,11 @@
+@import "../../../../_styles/reused/colors.module.scss";
+
+.action_modal__main {
+    width: 600px;
+    height: 500px;
+    position: absolute;
+    top: calc(50% - 250px);
+    left: calc(50% - 300px);
+    z-index: 2;
+    border: 1px solid green;
+}

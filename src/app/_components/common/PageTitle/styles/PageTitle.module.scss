@@ -1,0 +1,17 @@
+@import "../../../../_styles/reused/colors.module.scss";
+
+.page_title_main {
+   width: 200px;
+   padding: 10px;
+   margin: 10px auto;
+   display: flex;
+   align-items: center;
+   justify-content: space-around;
+   font-size: 35px;
+   color: $primary_blue;
+}
+
+.page_title__text {
+   font-size: 28px;
+   color: $accent_green;
+}
