@@ -1,10 +1,12 @@
 import { configureStore, Store } from "@reduxjs/toolkit";
 
 import uiSlice from "./slices/uiSlice";
-import type Reducers from "../../types/store/store";
+import tasksSlice from "./slices/tasksSlice";
+import type { Reducers } from "../../types/store/store";
 
 const reducers: Reducers = {
     ui: uiSlice,
+    tasks: tasksSlice
 }
 
 const store: Store = configureStore({

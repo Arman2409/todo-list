@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 
 import "./_styles/globals.scss";
-import PageTitle from "./_components/common/PageTitle/PageTitle";
 import StoreProvider from "./_store/StoreProvider";
+import PageTitle from "./_components/common/PageTitle/PageTitle";
 import ActionModal from "./_components/common/ActionModal.tsx/ActionModal";
 import type { LayoutProps } from "../types/layout";
 

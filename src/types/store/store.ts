@@ -1,7 +1,6 @@
 import type { Reducer } from "@reduxjs/toolkit"
 
-interface Reducers {
+export interface Reducers {
     ui: Reducer
+    tasks: Reducer
 }
-
-export default Reducers;

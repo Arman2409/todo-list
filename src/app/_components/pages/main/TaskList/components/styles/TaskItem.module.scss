@@ -1,0 +1,14 @@
+@import "../../../../../../_styles/reused/colors.module.scss";
+
+.task_item__main {
+    max-width: 900px;
+    margin: 5px;
+    padding: 10px;
+    border-radius: 15px;
+    border: 1px solid $primary_blue;
+    background-color: $accent_green;
+}
+
+.task_item__icon {
+    font-size: 25px;
+}

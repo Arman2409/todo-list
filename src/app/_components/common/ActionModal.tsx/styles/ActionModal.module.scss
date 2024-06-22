@@ -1,11 +1,24 @@
 @import "../../../../_styles/reused/colors.module.scss";
+@import "../../../../_styles/reused/sizes.module.scss";
 
 .action_modal__main {
-    width: 600px;
-    height: 500px;
+    width: $modal_width;
+    height: $modal_height;
+    padding: 10px;
     position: absolute;
-    top: calc(50% - 250px);
-    left: calc(50% - 300px);
-    z-index: 2;
-    border: 1px solid green;
+    top: calc(50% - $modal_height / 2);
+    left: 100%;
+    z-index: 11;
+    border: 1px solid $highlight_yellow;
+    background-color: $accent_green;
+}
+
+.action_modal__title {
+    margin: 0px;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+:export {
+    should_animate_left:  calc(50% - $modal_width / 2);
 }
