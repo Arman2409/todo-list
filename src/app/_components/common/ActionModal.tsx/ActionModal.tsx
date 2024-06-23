@@ -1,30 +1,26 @@
 "use client"
 import React, { useCallback, useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Input, Space, message } from 'antd';
+import { message } from 'antd';
 import { animate } from "framer-motion";
 import { useFormik } from "formik";
-import { object, string, date } from "yup";
 
 import styles from "./styles/ActionModal.module.scss";
 import { changeModalStatus } from '../../../_store/slices/uiSlice';
-import { addTask, completeTask, deleteTask, editTask } from '../../../_store/slices/tasksSlice';
+import { addTask, completeTask, deleteTask, editTask, restoreTask } from '../../../_store/slices/tasksSlice';
 import titles from './data/titles';
 import generateUniqueId from './helpers/generateUniqueId';
+import TaskSchema from './schemas/taskSchema';
 import ModalButtons from './components/ModalButtons/ModalButtons';
+import ModalInputs from './components/ModalInputs/ModalInputs';
 import type { StoreState } from '../../../_store/store';
 import type { Task } from '../../../../types/store/tasksSlice';
-
-const TaskSchema = object({
-  name: string().required(),
-  deadline: date(),
-  description: string(),
-})
+import type { TaskValues } from './schemas/taskSchema';
 
 const TaskList = () => {
   const dispatch = useDispatch();
-  const { modalStatus = undefined, activeId } = useSelector((state: StoreState) => state.ui)
-  const { tasks = [] } = useSelector((state: StoreState) => state.tasks)
+  const { modalStatus, activeId } = useSelector((state: StoreState) => state.ui)
+  const { tasks = [], trash = [] } = useSelector((state: StoreState) => state.tasks)
 
   const modalCont = useRef<HTMLDivElement>(null);
   const demo = useRef<HTMLDivElement>(null);
@@ -36,9 +32,9 @@ const TaskList = () => {
     initialValues: {
       name: '',
       description: '',
-      deadline: null,
+      deadline: undefined,
     },
-    onSubmit: async (values: any) => {
+    onSubmit: async (values: TaskValues) => {
       // Handle form submission with values object
       await TaskSchema.validate(values)
         .then(data => {
@@ -75,6 +71,10 @@ const TaskList = () => {
       dispatch(completeTask(activeId));
       closeModal();
     }
+    if (modalStatus === "restoring") {
+      dispatch(restoreTask(activeId))
+      closeModal();
+    }
   }
 
   const closeModal = useCallback(() => {
@@ -95,7 +95,7 @@ const TaskList = () => {
       } else {
         formik.setValues({
           name: "",
-          date: "",
+          deadline: undefined,
           description: ""
         });
         animate(modalCont.current as HTMLDivElement, {
@@ -143,33 +143,7 @@ const TaskList = () => {
           <h3 className={styles.action_modal__confirm_text}>
             Are you sure you want to {modalTitle.toLowerCase()}
           </h3>
-          : <>
-            <Input.TextArea
-              name="name"
-              value={formik.values.name}
-              placeholder="Add a new task..."
-              autoSize={{ minRows: 2, maxRows: 6 }}
-              onChange={formik.handleChange}
-            />
-            <Space direction="horizontal" style={{ marginTop: 8 }}>
-              <Input.TextArea
-                name="description"
-                placeholder="Description (optional)"
-                value={formik.values.description}
-                autoSize={{ minRows: 2, maxRows: 3 }}
-                onChange={formik.handleChange}
-              />
-              <input
-                type="date"
-                name="deadline"
-                placeholder="Deadline (optional)"
-                value={formik.values.deadline}
-                onChange={(date) => {
-                  formik.setFieldValue('deadline', date.target.value)
-                }}
-              />
-            </Space>
-          </>}
+          : <ModalInputs formik={formik} />}
         <ModalButtons
           modalTitle={modalTitle}
           isConfirm={isConfirm}

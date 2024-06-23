@@ -6,10 +6,8 @@ import styles from "./styles/PageTitle.module.scss";
 import pagesData from "./data/pagesInfo";
 
 const PageTitle = () => {
-    const { title: pageTitle, icon: pageIcon} = pagesData.get("/") as any;
-
-    const [title, setTitle] = useState<string>(pageTitle);
-    const [icon, setIcon] = useState<ReactNode>(pageIcon);
+    const [title, setTitle] = useState<string>("");
+    const [icon, setIcon] = useState<ReactNode|null>(null);
     const pathname = usePathname();
 
     useEffect(() => {
@@ -17,7 +15,7 @@ const PageTitle = () => {
         if (pageData) {
             const { title: pageTitle, icon: pageIcon } = pageData;
             setTitle(pageTitle);
-            setIcon(pageIcon)
+            setIcon(pageIcon);
         }
     }, [pathname, setTitle, setIcon])
 

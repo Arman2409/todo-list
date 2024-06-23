@@ -1,4 +1,6 @@
-const titles = new Map([
+import type { ModalStatus } from "../../../../../types/store/uiSlice";
+
+const titles: Map<ModalStatus, string> = new Map([
     ['editing', "Edit Task"],
     ['adding', "Add Task"],
     ['deleting', "Delete Task"],

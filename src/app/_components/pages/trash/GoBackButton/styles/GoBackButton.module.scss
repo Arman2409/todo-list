@@ -1,0 +1,25 @@
+@import "../../../../../_styles/reused/colors.module.scss";
+@import "../../../../../_styles/reused/classes.module.scss";
+
+.go_back__main {
+   @extend .centered_content;
+
+   width: 50px;
+   height: 50px;
+   border-radius: 10px;
+   position: absolute;
+   top: 35px;
+   left: 35px;
+   border: 1px solid $primary_green;
+   cursor: pointer;
+
+   @media screen and (max-width: 760px) {
+    left: unset;
+    right: 35px;
+   }
+}
+
+.go_back__icon {
+    font-size: 24px;
+    color: $primary_blue;
+ }

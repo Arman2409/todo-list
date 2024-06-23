@@ -4,8 +4,8 @@ import { useSelector } from 'react-redux';
 import { List } from 'antd';
 
 import TaskItem from './components/TaskItem';
-import type { StoreState } from '../../../../_store/store';
-import type { Task } from '../../../../../types/store/tasksSlice';
+import type { StoreState } from '../../../_store/store';
+import type { Task } from '../../../../types/store/tasksSlice';
 
 const TasksList = ({ isTrash }: { isTrash: boolean }) => {
   const { tasks: storeTasks = [], trash = [] } = useSelector((state: StoreState) => state.tasks);
@@ -14,9 +14,7 @@ const TasksList = ({ isTrash }: { isTrash: boolean }) => {
 
   return (
     <List
-      style={{
-        padding: "10px"
-      }}
+      className="padding_10"
       itemLayout="horizontal"
       dataSource={tasks}
       renderItem={(task: Task) => <TaskItem isTrash={isTrash} {...task} />}

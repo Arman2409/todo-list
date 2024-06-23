@@ -5,12 +5,12 @@
     width: $modal_width;
     height: auto;
     padding: 10px;
+    border: 1px solid $primary_yellow;
     position: absolute;
     top: 50%;
-    transform: translateY(-50%);
     left: 100%;
+    transform: translateY(-50%);
     z-index: 11;
-    border: 1px solid $primary_yellow;
     background-color: $primary_green;
 }
 
@@ -25,7 +25,6 @@
    text-align: center;
    color: $primary_yellow;
 }
-
 
 :export {
     should_animate_left:  calc(50% - $modal_width / 2);

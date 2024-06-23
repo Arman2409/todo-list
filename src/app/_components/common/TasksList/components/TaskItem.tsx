@@ -2,16 +2,22 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { List, Button, Typography } from 'antd';
-import { EditOutlined, DeleteOutlined, CheckOutlined } from '@ant-design/icons';
+import { EditOutlined, DeleteOutlined, CheckOutlined, UndoOutlined } from '@ant-design/icons';
 
 import styles from "./styles/TaskItem.module.scss";
-import { changeActiveId, changeModalStatus } from '../../../../../_store/slices/uiSlice';
+import { changeActiveId, changeModalStatus } from '../../../../_store/slices/uiSlice';
 import statusColors from './data/statusColors';
-import truncateString from '../../../../../../helpers/truncateString';
-import type { ModalStatus } from '../../../../../../types/store/uiSlice';
-import type { TaskItemProps } from '../../../../../../types/pages/main';
+import truncateString from '../../../../../helpers/truncateString';
+import type { ModalStatus } from '../../../../../types/store/uiSlice';
+import type { TaskItemProps } from '../../../../../types/pages/main';
 
-const TaskItem = ({ id, name, description, deadline, status, isTrash }: TaskItemProps) => {
+const TaskItem = ({ 
+    id, 
+    name, 
+    description, 
+    deadline, 
+    status, 
+    isTrash }: TaskItemProps) => {
     const dispatch = useDispatch();
 
     const statusColor = statusColors.get(status);
@@ -35,13 +41,10 @@ const TaskItem = ({ id, name, description, deadline, status, isTrash }: TaskItem
                 ),
                 <Button
                     type="link"
-                    style={{
-                        color: "gray"
-                    }}
                     onClick={() => openModalForAction("editing")}
                 >
                     <EditOutlined
-                        className={styles.task_item__icon}
+                        className={styles.task_item__icon__edit}
                     />
                 </Button>,
                 <Button
@@ -51,7 +54,14 @@ const TaskItem = ({ id, name, description, deadline, status, isTrash }: TaskItem
                 >
                     <DeleteOutlined className={styles.task_item__icon} />
                 </Button>,
-            ] : []}
+            ] : [
+                <Button
+                    type="link"
+                    onClick={() => openModalForAction("restoring")}
+                >
+                   <UndoOutlined className={styles.task_item__icon}/>
+                </Button>,
+            ]}
         >
             <div
                 className={styles.border__cont}
@@ -65,7 +75,7 @@ const TaskItem = ({ id, name, description, deadline, status, isTrash }: TaskItem
             />
             <Typography.Text
                 style={{
-                    marginRight: deadline ? "20px" : "150px"
+                    marginRight: deadline ? "20px" : "135px"
                 }}
                 type="secondary">
                 Status: <span style={{ color: statusColor }}>{status}</span>

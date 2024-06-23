@@ -25,6 +25,18 @@ const tasksSlice: Slice = createSlice({
                 status: "pending"
             }];
         },
+        restoreTask: (state, {payload}: {payload: string}) => {
+            state.trash = state.trash.filter((trashItem: Task) => {
+                if(trashItem.id === payload) {
+                    state.tasks = [...state.tasks, {
+                        ...trashItem,
+                        status: "pending"
+                    }];
+                    return false;
+                }
+                return true;
+            })
+        },
         editTask: (state, { payload }: { payload: Task }) => {
             state.tasks = state.tasks.map((task: Task) => {
                 if (payload.id === task.id) return payload;
@@ -57,5 +69,5 @@ const tasksSlice: Slice = createSlice({
     },
 });
 
-export const { addTask, editTask, completeTask, deleteTask } = tasksSlice.actions;
+export const { addTask, editTask, completeTask, restoreTask, deleteTask } = tasksSlice.actions;
 export default tasksSlice.reducer;

@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react';
 
 import styles from "./styles/Loading.module.scss";
+import type { LoadingProps } from '../../../../types/common';
 
-const Loading = ({ windowLoad }: { windowLoad: boolean }) => {
+const Loading = ({ windowLoad }: LoadingProps ) => {
     const [visible, setVisible] = useState<boolean>(true);
 
     useEffect(() => {

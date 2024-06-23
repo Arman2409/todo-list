@@ -1,4 +1,4 @@
-@import "../../../../../../_styles/reused/colors.module.scss";
+@import "../../../../../_styles/reused/colors.module.scss";
 
 .task_item__main {
     max-width: 900px;
@@ -23,4 +23,10 @@
 
 .task_item__icon {
     font-size: 25px;
+}
+
+.task_item__icon__edit {
+   @extend .task_item__icon;
+
+   color: $primary_grey;
 }

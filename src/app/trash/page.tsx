@@ -1,8 +1,10 @@
-import TasksList from "../_components/pages/main/TasksList/TasksList";
+import TasksList from "../_components/common/TasksList/TasksList";
+import GoBackButton from "../_components/pages/trash/GoBackButton/GoBackButton";
 
 const TrashPage = () => (
   <>
-    <TasksList isTrash/>
+    <GoBackButton />
+    <TasksList isTrash />
   </>
 )
 
