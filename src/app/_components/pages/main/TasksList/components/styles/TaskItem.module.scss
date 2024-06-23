@@ -1,0 +1,26 @@
+@import "../../../../../../_styles/reused/colors.module.scss";
+
+.task_item__main {
+    max-width: 900px;
+    margin: 15px 0px;
+    height: 50px;
+    padding: 0px 10px !important;
+    background-color: $primary_blue;
+    position: relative;
+    z-index: 1;
+}
+
+.border__cont {
+    height: calc(100% + 10px);
+    width: calc(100% + 10px);
+    position: absolute;
+    border: 5px solid;
+    border-radius: 15px;
+    top: -5px;
+    left: -5px;
+    z-index: -1;
+}
+
+.task_item__icon {
+    font-size: 25px;
+}

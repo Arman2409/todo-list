@@ -1,15 +1,10 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import type { ModalStatus } from "../../../types/store/uiSlice";
+import type { ModalStatus, UIInitialState } from "../../../types/store/uiSlice";
 
-interface InitialState {
-    modalStatus: ModalStatus
-    editId: string
-}
-
-const initialState: InitialState = {
+const initialState: UIInitialState = {
     modalStatus: undefined,
-    editId: ""
+    activeId: ""
 }
 
 const uiSlice: Slice = createSlice({
@@ -19,11 +14,11 @@ const uiSlice: Slice = createSlice({
         changeModalStatus: (state, { payload }: { payload: ModalStatus }) => {
             state.modalStatus = payload;
         },
-        changeEditId: (state, { payload }: { payload: ModalStatus }) => {
-            state.editId = payload;
+        changeActiveId: (state, { payload }: { payload: ModalStatus }) => {
+            state.activeId = payload;
         }
     },
 });
 
-export const { changeModalStatus, changeEditId } = uiSlice.actions;
+export const { changeModalStatus, changeActiveId } = uiSlice.actions;
 export default uiSlice.reducer;

@@ -1,12 +1,12 @@
 import Spinner from "./_components/common/Loading/Loading";
-import AddTaskButton from "./_components/pages/main/AddTaskButton.tsx/AddTaskButton";
-import TaskList from "./_components/pages/main/TaskList/TaskList";
+import TasksButtons from "./_components/pages/main/TasksButtons/TasksButtons";
+import TasksList from "./_components/pages/main/TasksList/TasksList";
 
 const HomePage = () => (
     <>
       <Spinner windowLoad={true} />
-      <AddTaskButton />
-      <TaskList/>
+      <TasksButtons />
+      <TasksList isTrash={false} />
     </>
 );
 

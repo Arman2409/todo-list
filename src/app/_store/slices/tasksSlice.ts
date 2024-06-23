@@ -1,44 +1,61 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import type { ModalStatus } from "../../../types/store/uiSlice";
+import type { TasksInitialState, Task } from "../../../types/store/tasksSlice";
 
-export interface Task {
-    id: string,
-    name: string;
-    description?: string;
-    deadline?: Date;
-    completed?: boolean;
-    removed?: boolean; // Optional for handling removed tasks
-}
-
-interface InitialState {
-    tasks: Task[]
-}
-
-const initialState: InitialState = {
+const initialState: TasksInitialState = {
     tasks: [
         {
             id: "1",
             name: "test task",
             description: "test description",
-            deadline: new Date()
+            deadline: new Date(),
+            status: "pending"
         }
-    ]
+    ],
+    trash: []
 }
 
 const tasksSlice: Slice = createSlice({
     name: "tasksSlice",
     initialState,
     reducers: {
-        addTask: (state, { payload }: { payload: ModalStatus }) => {
-            state.tasks = [...state.tasks, payload];
+        addTask: (state, { payload }: { payload: Task }) => {
+            state.tasks = [...state.tasks, {
+                ...payload,
+                status: "pending"
+            }];
         },
-        deleteTask: (state, { payload }: { payload: ModalStatus }) => {
-            state.tasks = state.tasks.filter(({id}:Task) => id !== payload);
+        editTask: (state, { payload }: { payload: Task }) => {
+            state.tasks = state.tasks.map((task: Task) => {
+                if (payload.id === task.id) return payload;
+                return task;
+            });
         },
-
+        completeTask: (state, { payload }: { payload: string }) => {
+            state.tasks = state.tasks.map((task: Task) => {
+                if (task.id === payload) {
+                    return {
+                        ...task,
+                        status: "completed"
+                    }
+                }
+                return task
+            });
+        },
+        deleteTask: (state, { payload }: { payload: string }) => {
+            state.tasks = state.tasks.filter((task: Task) => {
+                if (task.id !== payload) {
+                    return true;
+                }
+                state.trash = [...state.trash, {
+                    ...task,
+                    status: "removed"
+                }];
+                return false;
+            });
+        },
     },
 });
 
-export const { addTask, deleteTask } = tasksSlice.actions;
+export const { addTask, editTask, completeTask, deleteTask } = tasksSlice.actions;
 export default tasksSlice.reducer;

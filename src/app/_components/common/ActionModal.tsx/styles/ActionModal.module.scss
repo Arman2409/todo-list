@@ -3,21 +3,29 @@
 
 .action_modal__main {
     width: $modal_width;
-    height: $modal_height;
+    height: auto;
     padding: 10px;
     position: absolute;
-    top: calc(50% - $modal_height / 2);
+    top: 50%;
+    transform: translateY(-50%);
     left: 100%;
     z-index: 11;
-    border: 1px solid $highlight_yellow;
-    background-color: $accent_green;
+    border: 1px solid $primary_yellow;
+    background-color: $primary_green;
 }
 
 .action_modal__title {
     margin: 0px;
     margin-bottom: 5px;
     text-align: center;
+    color: $primary_blue;
 }
+
+.action_modal__confirm_text {
+   text-align: center;
+   color: $primary_yellow;
+}
+
 
 :export {
     should_animate_left:  calc(50% - $modal_width / 2);

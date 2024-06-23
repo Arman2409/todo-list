@@ -10,7 +10,7 @@ import type { LayoutProps } from "../types/layout";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "ToDo List",
+  title: "To Do",
   description: "Tasks management system",
 };
 

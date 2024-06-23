@@ -1,0 +1,37 @@
+@import "../../../../../_styles/reused/classes.module.scss";
+@import "../../../../../_styles/reused/colors.module.scss";
+@import "../../../../../_styles/reused/sizes.module.scss";
+
+.tasks_buttons__cont {
+    width: $tasks_buttons_width;
+    height: auto;
+    position: absolute;
+    left: calc(100% - $tasks_buttons_width);
+}
+
+.tasks_button {
+    width: $tasks_buttons_width;
+    height: 50px;
+    font-size: 25px;
+    padding: 5px;
+    z-index: 1;
+    border-radius: 25px;
+    margin-bottom: 25px
+}
+
+.add_task_button {
+    @extend .centered_content;
+    @extend .tasks_button;
+
+    background-color: $primary_green;
+    color: $primary_grey;
+}
+
+.trash_button {
+    @extend .centered_content;
+    @extend .tasks_button;
+
+    background-color: $primary_grey;
+    color: $primary_blue;
+    color: red;
+}

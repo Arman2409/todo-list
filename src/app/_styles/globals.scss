@@ -9,4 +9,6 @@
 body {
     margin: 0px;
     padding: 0px;
+    overflow-x: hidden;
+    background-color: rgba($primary_grey, 0.1);
 }

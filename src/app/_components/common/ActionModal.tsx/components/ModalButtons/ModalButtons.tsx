@@ -2,11 +2,13 @@ import { Button } from "antd";
 
 import styles from "./styles/ModalButtons.module.scss";
 
-const ModalButtons = ({ modalTitle, closeModal, submitForm }: any) => (
-    <div className={styles.modal_buttons__main}>
+const ModalButtons = ({ modalTitle, closeModal, submit, isConfirm }: any) => (
+    <div 
+      className={`${styles.modal_buttons__main} ${isConfirm ? "centered_content" : ""}`}
+    >
         <Button
             ghost
-            onClick={submitForm}
+            onClick={submit}
             className={styles.modal_buttons__button}
         >
             {modalTitle.slice(0, -5)}
