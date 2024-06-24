@@ -1,6 +1,7 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import type { ModalStatus, UIInitialState } from "../../../types/store/uiSlice";
+import type { StatusAction, UIInitialState } from "../../../types/store/uiSlice";
+import type { DeleteAction } from "../../../types/store/tasksSlice";
 
 const initialState: UIInitialState = {
     modalStatus: undefined,
@@ -11,10 +12,16 @@ const uiSlice: Slice = createSlice({
     name: "demoSlice",
     initialState,
     reducers: {
-        changeModalStatus: (state, { payload }: { payload: ModalStatus }) => {
+        changeModalStatus: (
+            state, 
+            { payload }: StatusAction
+        ) => {
             state.modalStatus = payload;
         },
-        changeActiveId: (state, { payload }: { payload: ModalStatus }) => {
+        changeActiveId: (
+            state, 
+            { payload }: DeleteAction
+        ) => {
             state.activeId = payload;
         }
     },

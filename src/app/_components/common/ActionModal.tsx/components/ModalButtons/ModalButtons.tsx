@@ -12,7 +12,6 @@ const ModalButtons = ({
         className={`${styles.modal_buttons__main} ${isConfirm ? "centered_content" : ""}`}
     >
         <Button
-            ghost
             onClick={() => submit()}
             className={styles.modal_buttons__button}
         >

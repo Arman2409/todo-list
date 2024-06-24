@@ -5,6 +5,21 @@ export interface TasksInitialState {
     trash: Task[]
 }
 
+export interface AddAction {
+    payload: Task
+}
+
+export interface ChangeStatusAction {
+    payload: {
+        id: string,
+        status: string
+    }
+}
+
+export interface DeleteAction {
+    payload: string
+}
+
 export interface Task {
     id: string
     name: string

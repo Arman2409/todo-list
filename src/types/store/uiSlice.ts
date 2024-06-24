@@ -4,3 +4,7 @@ export interface UIInitialState {
     modalStatus: ModalStatus
     activeId: string
 }
+
+export interface StatusAction {
+    payload: ModalStatus
+}

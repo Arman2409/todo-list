@@ -1,17 +1,10 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import type { TasksInitialState, Task } from "../../../types/store/tasksSlice";
+import { defaultTask } from "../../../configs/tasks";
+import type { TasksInitialState, Task, AddAction, ChangeStatusAction, DeleteAction } from "../../../types/store/tasksSlice";
 
 const initialState: TasksInitialState = {
-    tasks: [
-        {
-            id: "1",
-            name: "test task",
-            description: "test description",
-            deadline: new Date(),
-            status: "pending"
-        }
-    ],
+    tasks: [defaultTask as Task],
     trash: []
 }
 
@@ -19,15 +12,68 @@ const tasksSlice: Slice = createSlice({
     name: "tasksSlice",
     initialState,
     reducers: {
-        addTask: (state, { payload }: { payload: Task }) => {
+        addTask: (
+            state,
+            { payload }: AddAction
+        ) => {
             state.tasks = [...state.tasks, {
                 ...payload,
                 status: "pending"
             }];
         },
-        restoreTask: (state, {payload}: {payload: string}) => {
+        editTask: (
+            state,
+            { payload }: AddAction
+        ) => {
+            state.tasks = state.tasks.map((task: Task) => {
+                if (payload.id === task.id) {
+                    return payload
+                };
+                return task;
+            });
+        },
+        changeTaskStatus: (
+            state,
+            { payload }: ChangeStatusAction
+        ) => {
+            console.log("change", payload.status);
+            
+            const { id, status } = { ...payload };
+            state.tasks = state.tasks.map((task: Task) => {
+                if (task.id === id) {
+                    return {
+                        ...task,
+                        status
+                    }
+                }
+                return task
+            });
+            console.log(state.tasks);
+            
+        },
+        deleteTask: (
+            state,
+            { payload }: DeleteAction
+        ) => {
+            state.tasks = state.tasks.filter((task: Task) => {
+                if (task.id !== payload) {
+                    return true;
+                }
+                // Add the task to the trash 
+                state.trash = [...state.trash, {
+                    ...task,
+                    status: "removed"
+                }];
+                return false;
+            });
+        },
+        restoreTask: (
+            state,
+            { payload }: DeleteAction
+        ) => {
             state.trash = state.trash.filter((trashItem: Task) => {
-                if(trashItem.id === payload) {
+                if (trashItem.id === payload) {
+                    // Add the task
                     state.tasks = [...state.tasks, {
                         ...trashItem,
                         status: "pending"
@@ -37,37 +83,8 @@ const tasksSlice: Slice = createSlice({
                 return true;
             })
         },
-        editTask: (state, { payload }: { payload: Task }) => {
-            state.tasks = state.tasks.map((task: Task) => {
-                if (payload.id === task.id) return payload;
-                return task;
-            });
-        },
-        completeTask: (state, { payload }: { payload: string }) => {
-            state.tasks = state.tasks.map((task: Task) => {
-                if (task.id === payload) {
-                    return {
-                        ...task,
-                        status: "completed"
-                    }
-                }
-                return task
-            });
-        },
-        deleteTask: (state, { payload }: { payload: string }) => {
-            state.tasks = state.tasks.filter((task: Task) => {
-                if (task.id !== payload) {
-                    return true;
-                }
-                state.trash = [...state.trash, {
-                    ...task,
-                    status: "removed"
-                }];
-                return false;
-            });
-        },
     },
 });
 
-export const { addTask, editTask, completeTask, restoreTask, deleteTask } = tasksSlice.actions;
+export const { addTask, editTask, changeTaskStatus, restoreTask, deleteTask } = tasksSlice.actions;
 export default tasksSlice.reducer;

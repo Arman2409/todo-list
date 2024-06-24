@@ -6,6 +6,7 @@
     width: $tasks_buttons_width;
     height: auto;
     position: absolute;
+    margin-top: 10px;
     left: calc(100% - $tasks_buttons_width);
 
     @media screen and (max-width: 1200px) {

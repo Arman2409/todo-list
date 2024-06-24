@@ -1,0 +1,23 @@
+@import "../../../../../../_styles/reused/colors.module.scss";
+
+.modal_inputs__input {
+    color: $primary_green;
+}
+
+.modal_inputs__date {
+    @extend .modal_inputs__input;
+
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+
+    &:focus {
+        border-color: #66afe9;
+        outline: none;
+    }
+
+    &:hover {
+        border-color: #888;
+    }
+}

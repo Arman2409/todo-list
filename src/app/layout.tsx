@@ -5,7 +5,7 @@ import "./_styles/globals.scss";
 import StoreProvider from "./_store/StoreProvider";
 import PageTitle from "./_components/common/PageTitle/PageTitle";
 import ActionModal from "./_components/common/ActionModal.tsx/ActionModal";
-import type { LayoutProps } from "../types/layout";
+import type { ProviderProps } from "../types/global";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   description: "Tasks management system",
 };
 
-const RootLayout = ({children}: LayoutProps) => (
+const RootLayout = ({children}: ProviderProps) => (
   <html lang="en">
     <body className={inter.className}>
       <PageTitle />

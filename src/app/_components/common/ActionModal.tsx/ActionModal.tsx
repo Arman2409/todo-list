@@ -7,12 +7,13 @@ import { useFormik } from "formik";
 
 import styles from "./styles/ActionModal.module.scss";
 import { changeModalStatus } from '../../../_store/slices/uiSlice';
-import { addTask, completeTask, deleteTask, editTask, restoreTask } from '../../../_store/slices/tasksSlice';
+import { addTask, editTask } from '../../../_store/slices/tasksSlice';
 import titles from './data/titles';
 import generateUniqueId from './helpers/generateUniqueId';
 import TaskSchema from './schemas/taskSchema';
 import ModalButtons from './components/ModalButtons/ModalButtons';
 import ModalInputs from './components/ModalInputs/ModalInputs';
+import useSubmitForm from './hooks/useSubmitForm';
 import type { StoreState } from '../../../_store/store';
 import type { Task } from '../../../../types/store/tasksSlice';
 import type { TaskValues } from './schemas/taskSchema';
@@ -20,7 +21,7 @@ import type { TaskValues } from './schemas/taskSchema';
 const TaskList = () => {
   const dispatch = useDispatch();
   const { modalStatus, activeId } = useSelector((state: StoreState) => state.ui)
-  const { tasks = [], trash = [] } = useSelector((state: StoreState) => state.tasks)
+  const { tasks = [] } = useSelector((state: StoreState) => state.tasks)
 
   const modalCont = useRef<HTMLDivElement>(null);
   const demo = useRef<HTMLDivElement>(null);
@@ -52,74 +53,52 @@ const TaskList = () => {
           closeModal();
         })
         .catch(e => {
-          message.error(e.message)
-        }
-        )
+          message.warning(e.message)
+        })
     },
   });
-
-
-  const submit = () => {
-    if (modalStatus === "adding" || modalStatus === "editing") {
-      return formik.submitForm();
-    }
-    if (modalStatus === "deleting") {
-      dispatch(deleteTask(activeId));
-      closeModal();
-    }
-    if (modalStatus === "completing") {
-      dispatch(completeTask(activeId));
-      closeModal();
-    }
-    if (modalStatus === "restoring") {
-      dispatch(restoreTask(activeId))
-      closeModal();
-    }
-  }
 
   const closeModal = useCallback(() => {
     dispatch(changeModalStatus(undefined));
   }, [changeModalStatus, dispatch])
 
+  const submit = useSubmitForm({
+    modalStatus,
+    activeId,
+    formik,
+    closeModal
+  });
+
   useEffect(() => {
-    if (modalCont) {
-      if (modalStatus) {
-        animate(modalCont.current as HTMLDivElement, {
-          left: styles.should_animate_left
-        });
-        if (demo) {
-          animate(demo.current as HTMLDivElement, {
-            opacity: 0.5
-          });
-        }
-      } else {
-        formik.setValues({
-          name: "",
-          deadline: undefined,
-          description: ""
-        });
-        animate(modalCont.current as HTMLDivElement, {
-          left: "100%"
-        })
-        if (demo) {
-          animate(demo.current as HTMLDivElement, {
-            opacity: 0
-          });
-        }
-      }
-    }
-    if (modalStatus === "editing") {
-      const task = tasks.find(({ id }: Task) => id === activeId);
-      if (task) {
-        const { id = "", ...rest } = { ...task };
-        for (const entry in rest) {
-          if (entry === "deadline") {
-            formik.setFieldValue(entry, new Date(rest[entry]).toISOString().slice(0, 10));
-          } else {
-            formik.setFieldValue(entry, rest[entry]);
+    if (modalStatus) {
+      animate(modalCont && modalCont.current as HTMLDivElement, {
+        left: styles.should_animate_left
+      });
+      animate(demo && demo.current as HTMLDivElement, {
+        opacity: 0.5
+      });
+      if (modalStatus === "editing") {
+        const task = tasks.find(({ id }: Task) => id === activeId);
+        if (task) {
+          const { id = "", ...rest } = { ...task };
+          for (const entry in rest) {
+            if (entry === "deadline") {
+              formik.setFieldValue(entry, new Date(rest[entry]).toISOString().slice(0, 10));
+            } else {
+              formik.setFieldValue(entry, rest[entry]);
+            }
           }
         }
       }
+    } else {
+      formik.setValues({
+        name: "",
+        deadline: undefined,
+        description: ""
+      });
+      animate(modalCont.current as HTMLDivElement, {
+        left: "100%"
+      })
     }
   }, [modalStatus])
 

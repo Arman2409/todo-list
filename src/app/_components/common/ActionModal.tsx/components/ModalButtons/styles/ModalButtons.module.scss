@@ -1,3 +1,5 @@
+@import "../../../../../../_styles/reused/colors.module.scss";
+
 .modal_buttons__main {
     height: auto;
     display: flex;
@@ -8,4 +10,6 @@
 .modal_buttons__button {
     height: 40px;
     margin: 0px 5px;
+    color: $primary_blue;
+    border: 2px solid $primary_yellow !important;
 }

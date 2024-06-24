@@ -11,12 +11,12 @@ import truncateString from '../../../../../helpers/truncateString';
 import type { ModalStatus } from '../../../../../types/store/uiSlice';
 import type { TaskItemProps } from '../../../../../types/pages/main';
 
-const TaskItem = ({ 
-    id, 
-    name, 
-    description, 
-    deadline, 
-    status, 
+const TaskItem = ({
+    id,
+    name,
+    description,
+    deadline,
+    status,
     isTrash }: TaskItemProps) => {
     const dispatch = useDispatch();
 
@@ -59,10 +59,11 @@ const TaskItem = ({
                     type="link"
                     onClick={() => openModalForAction("restoring")}
                 >
-                   <UndoOutlined className={styles.task_item__icon}/>
+                    <UndoOutlined className={styles.task_item__icon} />
                 </Button>,
             ]}
         >
+            {/* Container for achieving the border  */}
             <div
                 className={styles.border__cont}
                 style={{
@@ -73,19 +74,26 @@ const TaskItem = ({
                 title={truncateString(name, 50)}
                 description={truncateString(description, 50)}
             />
-            <Typography.Text
+            <div
+                className={styles.task_item__details}
                 style={{
-                    marginRight: deadline ? "20px" : "135px"
+                    marginRight: status === "completed" ? "58px" : "0px"
                 }}
-                type="secondary">
-                Status: <span style={{ color: statusColor }}>{status}</span>
-            </Typography.Text>
-            {deadline && (
+            >
                 <Typography.Text
+                    style={{
+                        display: "block"
+                    }}
                     type="secondary">
-                    Deadline: {new Date(deadline).toLocaleDateString()}
+                    Status: <span style={{ color: statusColor }}>{status}</span>
                 </Typography.Text>
-            )}
+                {deadline && (
+                    <Typography.Text
+                        type="secondary">
+                        Deadline: {new Date(deadline).toLocaleDateString()}
+                    </Typography.Text>
+                )}
+            </div>
         </List.Item>
     )
 };
