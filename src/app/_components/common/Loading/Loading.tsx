@@ -25,7 +25,7 @@ const Loading = ({ windowLoad }: LoadingProps) => {
                 height={100}
                 src="/loading.gif"
                 alt="Loading..."
-                className={styles.loading__image} />
+            />
         </div>
     );
 };

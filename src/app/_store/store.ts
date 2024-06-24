@@ -26,7 +26,7 @@ const store: Store = configureStore({
     middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }),
 })
 
-export type AppDispatch = typeof store.dispatch;
+// Get and export sotre's type for further use 
 export type StoreState = ReturnType<typeof store.getState>;
 
 export const persistor = persistStore(store);

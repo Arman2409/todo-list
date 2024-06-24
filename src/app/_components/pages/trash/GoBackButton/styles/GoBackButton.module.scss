@@ -14,12 +14,12 @@
    cursor: pointer;
 
    @media screen and (max-width: 760px) {
-    left: unset;
-    right: 35px;
+      left: unset;
+      right: 35px;
    }
 }
 
 .go_back__icon {
-    font-size: 24px;
-    color: $primary_blue;
- }
+   font-size: 24px;
+   color: $primary_blue;
+}

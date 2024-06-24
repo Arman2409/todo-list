@@ -49,8 +49,14 @@ const AddTaskButton = () => {
   }
 
   useEffect(() => {
-    document.querySelector("#add_button")?.addEventListener("mouseenter", () => handleButtonHover(plusIcon.current, 90, "add"));
-    document.querySelector("#trash_button")?.addEventListener("mouseenter", () => handleButtonHover(trashIcon.current, 360, "trash"));
+    document.querySelector("#add_button")?.addEventListener(
+      "mouseenter",
+      () => handleButtonHover(plusIcon.current, 90, "add")
+    );
+    document.querySelector("#trash_button")?.addEventListener(
+      "mouseenter",
+      () => handleButtonHover(trashIcon.current, 360, "trash")
+    );
   }, [])
 
   return (

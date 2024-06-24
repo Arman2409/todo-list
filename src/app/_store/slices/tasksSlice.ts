@@ -1,6 +1,6 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import { defaultTasks } from "../../../configs/tasks";
+import { defaultTasks } from "../../../configs/main";
 import type { TasksInitialState, Task, AddAction, ChangeStatusAction, DeleteAction } from "../../../types/store/tasksSlice";
 
 const initialState: TasksInitialState = {
@@ -36,8 +36,6 @@ const tasksSlice: Slice = createSlice({
             state,
             { payload }: ChangeStatusAction
         ) => {
-            console.log("change", payload.status);
-            
             const { id, status } = { ...payload };
             state.tasks = state.tasks.map((task: Task) => {
                 if (task.id === id) {
@@ -48,8 +46,6 @@ const tasksSlice: Slice = createSlice({
                 }
                 return task
             });
-            console.log(state.tasks);
-            
         },
         deleteTask: (
             state,

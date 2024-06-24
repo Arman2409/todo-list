@@ -3,9 +3,10 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { List } from 'antd';
 
-import TaskItem from './components/TaskItem';
+import { statusPriorities } from '../../../../configs/main';
 import { changeTaskStatus } from '../../../_store/slices/tasksSlice';
 import isTaskOverdue from './helpers/isTaskOverdue';
+import TaskItem from './components/TaskItem';
 import type { StoreState } from '../../../_store/store';
 import type { Task } from '../../../../types/store/tasksSlice';
 
@@ -15,11 +16,11 @@ const TasksList = ({ isTrash }: { isTrash: boolean }) => {
   const dispatch = useDispatch();
 
   const sortTasks = (tasksToSort: Task[]) => tasksToSort.slice().sort(
-    ({status: status1}: Task, {status: status2}: Task) => {
+    ({ status: status1 }: Task, { status: status2 }: Task) => {
       // Object for keeping the priority of tasks by their status 
-      const statusOrder = { overdue: 0, pending: 1, completed: 2 };
-      
-      return (statusOrder[status1 as keyof typeof statusOrder] ?? 3) - (statusOrder[status2 as keyof typeof statusOrder] ?? 3);
+
+      return (statusPriorities[status1 as keyof typeof statusPriorities] ?? 3)
+        - (statusPriorities[status2 as keyof typeof statusPriorities] ?? 3);
     }
   );
 
@@ -54,7 +55,9 @@ const TasksList = ({ isTrash }: { isTrash: boolean }) => {
       className="padding_10"
       itemLayout="horizontal"
       dataSource={!isTrash ? tasksToShow : trash}
-      renderItem={(task: Task) => <TaskItem isTrash={isTrash} {...task} />}
+      renderItem={(task: Task) => (
+        <TaskItem isTrash={isTrash} {...task} />
+      )}
     />
   );
 };

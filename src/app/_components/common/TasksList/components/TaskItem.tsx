@@ -5,9 +5,9 @@ import { List, Button, Typography } from 'antd';
 import { EditOutlined, DeleteOutlined, CheckOutlined, UndoOutlined } from '@ant-design/icons';
 
 import styles from "./styles/TaskItem.module.scss";
+import truncateString from '../../../../../helpers/truncateString';
 import { changeActiveId, changeModalStatus } from '../../../../_store/slices/uiSlice';
 import statusColors from './data/statusColors';
-import truncateString from '../../../../../helpers/truncateString';
 import type { ModalStatus } from '../../../../../types/store/uiSlice';
 import type { TaskItemProps } from '../../../../../types/pages/main';
 

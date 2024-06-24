@@ -6,7 +6,7 @@ import type { ModalInputsProps } from "../../../../../../types/common";
 
 const ModalInputs = ({ formik }: ModalInputsProps) => (
     <Space
-        className="width-100"
+        className="width_100"
         direction="vertical">
         <Input
             name="name"

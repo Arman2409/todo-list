@@ -1,5 +1,7 @@
 import getNextDay from "../helpers/getNextDay";
 
+export const statusPriorities = { overdue: 0, pending: 1, completed: 2 };
+
 export const defaultTasks = [
     {
         id: "1",

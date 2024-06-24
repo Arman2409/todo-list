@@ -1,4 +1,12 @@
-type TaskStatus =  "pending" | "completed" | "overdue" | "removed"
+export type TaskStatus =  "pending" | "completed" | "overdue" | "removed"
+
+export interface Task {
+    id: string
+    name: string
+    description?: string
+    deadline?: Date
+    status: TaskStatus
+}
 
 export interface TasksInitialState {
     tasks: Task[]
@@ -18,12 +26,4 @@ export interface ChangeStatusAction {
 
 export interface DeleteAction {
     payload: string
-}
-
-export interface Task {
-    id: string
-    name: string
-    description?: string
-    deadline?: Date
-    status: TaskStatus
 }

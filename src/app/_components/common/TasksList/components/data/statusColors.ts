@@ -1,8 +1,10 @@
-const statusColors = new Map([
-    ["pending", "yellow"],  // Indicates tasks that need attention
-    ["completed", "green"],  // Indicates tasks that are done
-    ["overdue", "red"],  // Indicates tasks that are overdue
-    ["removed", "gray"],  // Indicates tasks that are removed
+import { TaskStatus } from "../../../../../../types/store/tasksSlice";
+
+const statusColors: Map<TaskStatus, string> = new Map([
+    ["pending", "yellow"],
+    ["completed", "green"],
+    ["overdue", "red"],
+    ["removed", "gray"],
 ]);
 
 export default statusColors;
