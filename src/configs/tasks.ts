@@ -1,7 +1,18 @@
-export const defaultTask = {
-    id: "1",
-    name: "My first task",
-    description: "Add new task",
-    deadline: new Date(),
-    status: "pending"
-}
+import getNextDay from "../helpers/getNextDay";
+
+export const defaultTasks = [
+    {
+        id: "1",
+        name: "Need to finish task",
+        description: "My note details",
+        deadline: getNextDay(new Date()),
+        status: "pending"
+    },
+    {
+        id: "2",
+        name: "Completed task",
+        description: "My note details",
+        deadline: getNextDay(new Date()),
+        status: "completed"
+    },
+]

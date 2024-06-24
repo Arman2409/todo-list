@@ -8,7 +8,9 @@ import type { ProviderProps } from "../../types/global";
 
 const StoreProvider = ({ children }: ProviderProps) => (
     <Provider store={store}>
-        <PersistGate persistor={persistor} loading={null}>
+        <PersistGate
+            persistor={persistor}
+            loading={null}>
             {children}
         </PersistGate>
     </Provider>

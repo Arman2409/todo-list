@@ -1,13 +1,13 @@
 "use client"
 import { useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
+import { useRouter } from "next/navigation";
+import Button from "antd/lib/button";
 import { DeleteTwoTone, PlusOutlined } from "@ant-design/icons";
-import { Button } from "antd";
 import { animate } from "framer-motion";
 
 import styles from "./styles/TasksButtons.module.scss";
 import { changeModalStatus } from "../../../../_store/slices/uiSlice";
-import { useRouter } from "next/navigation";
 
 
 const AddTaskButton = () => {
@@ -49,14 +49,8 @@ const AddTaskButton = () => {
   }
 
   useEffect(() => {
-    // .....Fix double event adding here......
-    // ..... 
     document.querySelector("#add_button")?.addEventListener("mouseenter", () => handleButtonHover(plusIcon.current, 90, "add"));
     document.querySelector("#trash_button")?.addEventListener("mouseenter", () => handleButtonHover(trashIcon.current, 360, "trash"));
-    return () => {
-      document.querySelector("#add_button")?.removeEventListener("mouseenter", () => handleButtonHover(plusIcon.current, 90, "add"));
-      document.querySelector("#trash_button")?.removeEventListener("mouseenter", () => handleButtonHover(trashIcon.current, 360, "trash"));
-    }
   }, [])
 
   return (

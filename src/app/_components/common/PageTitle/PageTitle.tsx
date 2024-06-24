@@ -13,6 +13,7 @@ const PageTitle = () => {
     useEffect(() => {
         const pageData = pagesData.get(pathname);
         if (pageData) {
+            // Update page title when routing 
             const { title: pageTitle, icon: pageIcon } = pageData;
             setTitle(pageTitle);
             setIcon(pageIcon);

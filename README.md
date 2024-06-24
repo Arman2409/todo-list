@@ -2,12 +2,13 @@
 
 Task management application
 
-## Prerequisites
+## Task implementation
 
-Make sure you have the following installed on your local machine:
+You can find several bugs in the project, which I couldn't fix due to time limitations.For example you can find that the fields of the add/edit form are not being validated in proper order, or that dates are not properly inserted in the form when editing.The fact that I didn't have any prior experience with Formik and Yup was also a reason I couldn't handle this kind of bugs.
 
-- [Node.js](https://nodejs.org/)
-- [npm](https://www.npmjs.com/)
+## Live preview
+
+ 
 
 ## Getting Started
 
@@ -16,7 +17,7 @@ Make sure you have the following installed on your local machine:
 * Node.js and npm
 * Git
 
-### Run locally 
+### Running locally 
 
 1. Clone the Repository
 

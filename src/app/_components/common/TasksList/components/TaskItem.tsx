@@ -33,6 +33,7 @@ const TaskItem = ({
             actions={!isTrash ? [
                 status !== "completed" && status !== "removed" && (
                     <Button
+                        key="complete"
                         type="link"
                         onClick={() => openModalForAction("completing")}
                     >
@@ -40,6 +41,7 @@ const TaskItem = ({
                     </Button>
                 ),
                 <Button
+                    key="edit"
                     type="link"
                     onClick={() => openModalForAction("editing")}
                 >
@@ -48,6 +50,7 @@ const TaskItem = ({
                     />
                 </Button>,
                 <Button
+                    key="delete"
                     danger
                     type="link"
                     onClick={() => openModalForAction("deleting")}
@@ -56,6 +59,7 @@ const TaskItem = ({
                 </Button>,
             ] : [
                 <Button
+                    key="restore"
                     type="link"
                     onClick={() => openModalForAction("restoring")}
                 >

@@ -1,10 +1,10 @@
 import { createSlice, Slice } from "@reduxjs/toolkit";
 
-import { defaultTask } from "../../../configs/tasks";
+import { defaultTasks } from "../../../configs/tasks";
 import type { TasksInitialState, Task, AddAction, ChangeStatusAction, DeleteAction } from "../../../types/store/tasksSlice";
 
 const initialState: TasksInitialState = {
-    tasks: [defaultTask as Task],
+    tasks: [...defaultTasks as Task[]],
     trash: []
 }
 

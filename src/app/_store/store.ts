@@ -18,6 +18,7 @@ const persistConfig = {
   storage,
 };
 
+// Persist the reducer for keeping the store state for routing 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 const store: Store = configureStore({

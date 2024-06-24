@@ -11,16 +11,15 @@ import type { Task } from '../../../../types/store/tasksSlice';
 
 const TasksList = ({ isTrash }: { isTrash: boolean }) => {
   const [tasksToShow, setTasksToShow] = useState<Task[]>([]);
-  const { tasks: storeTasks = [], trash = [] } = useSelector((state: StoreState) => state.tasks);
+  const { tasks, trash = [] } = useSelector((state: StoreState) => state.tasks);
   const dispatch = useDispatch();
 
-  const tasks = isTrash ? trash : storeTasks;
-
   const sortTasks = (tasksToSort: Task[]) => tasksToSort.slice().sort(
-    (a: Task, b: Task) => {
+    ({status: status1}: Task, {status: status2}: Task) => {
+      // Object for keeping the priority of tasks by their status 
       const statusOrder = { overdue: 0, pending: 1, completed: 2 };
       
-      return (statusOrder[a.status as keyof typeof statusOrder] ?? 3) - (statusOrder[b.status as keyof typeof statusOrder] ?? 3);
+      return (statusOrder[status1 as keyof typeof statusOrder] ?? 3) - (statusOrder[status2 as keyof typeof statusOrder] ?? 3);
     }
   );
 
@@ -47,16 +46,14 @@ const TasksList = ({ isTrash }: { isTrash: boolean }) => {
       if (!isUpdating) {
         setTasksToShow(sortTasks(tasks));
       }
-
     }
-
-  }, [tasks, dispatch]);
+  }, [tasks, dispatch, isTrash]);
 
   return (
     <List
       className="padding_10"
       itemLayout="horizontal"
-      dataSource={tasksToShow}
+      dataSource={!isTrash ? tasksToShow : trash}
       renderItem={(task: Task) => <TaskItem isTrash={isTrash} {...task} />}
     />
   );

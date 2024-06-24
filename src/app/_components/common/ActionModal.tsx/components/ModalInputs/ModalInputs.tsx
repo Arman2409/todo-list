@@ -5,13 +5,14 @@ import styles from "./styles/ModalInputs.module.scss";
 import type { ModalInputsProps } from "../../../../../../types/common";
 
 const ModalInputs = ({ formik }: ModalInputsProps) => (
-    <Space className="width-100" direction="vertical">
-        <Input.TextArea
+    <Space
+        className="width-100"
+        direction="vertical">
+        <Input
             name="name"
             value={formik.values.name}
             placeholder="Add a new task..."
             className={styles.modal_inputs__input}
-            autoSize={{ minRows: 2, maxRows: 6 }}
             onChange={formik.handleChange}
         />
         <Input.TextArea

@@ -18,6 +18,7 @@ const uiSlice: Slice = createSlice({
         ) => {
             state.modalStatus = payload;
         },
+        // Keep the active id for delete, complete, etc.  
         changeActiveId: (
             state, 
             { payload }: DeleteAction

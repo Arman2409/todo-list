@@ -6,6 +6,7 @@ import { animate } from "framer-motion";
 import { useFormik } from "formik";
 
 import styles from "./styles/ActionModal.module.scss";
+import truncateString from '../../../../helpers/truncateString';
 import { changeModalStatus } from '../../../_store/slices/uiSlice';
 import { addTask, editTask } from '../../../_store/slices/tasksSlice';
 import titles from './data/titles';
@@ -26,6 +27,7 @@ const TaskList = () => {
   const modalCont = useRef<HTMLDivElement>(null);
   const demo = useRef<HTMLDivElement>(null);
 
+  // Check if the modal is for confirmation of data entry 
   const isConfirm = modalStatus === "deleting" || modalStatus === "completing" || modalStatus === "restoring";
   const modalTitle = titles.get(modalStatus) || "Modify";
 
@@ -33,34 +35,40 @@ const TaskList = () => {
     initialValues: {
       name: '',
       description: '',
-      deadline: undefined,
-    },
+      //  Use "unknown" type here to prevent convertion of falsy values into a date
+      deadline: "" as unknown,
+    } as TaskValues,
     onSubmit: async (values: TaskValues) => {
       // Handle form submission with values object
-      await TaskSchema.validate(values)
-        .then(data => {
-          dispatch(
-            modalStatus === "adding" ?
-              addTask({
-                ...data,
-                id: generateUniqueId(),
-              }) :
-              editTask({
-                ...data,
-                id: activeId
-              })
-          );
-          closeModal();
-        })
-        .catch(e => {
-          message.warning(e.message)
-        })
+      try {
+        TaskSchema.validate(values)
+          .then(data => {
+            dispatch(
+              modalStatus === "adding" ?
+                addTask({
+                  ...data,
+                  id: generateUniqueId(),
+                }) :
+                editTask({
+                  ...data,
+                  id: activeId
+                })
+            );
+            closeModal();
+          }).catch((err: unknown) => {
+            const { message: errMessage = "Error Occured" } = { ...(err as Object) }
+            message.warning(truncateString(errMessage, 250))
+          })
+      } catch (err: unknown) {
+        const { message: errMessage = "Error Occured" } = { ...(err as Object) }
+        message.warning(truncateString(errMessage, 250))
+      }
     },
   });
 
   const closeModal = useCallback(() => {
     dispatch(changeModalStatus(undefined));
-  }, [changeModalStatus, dispatch])
+  }, [dispatch])
 
   const submit = useSubmitForm({
     modalStatus,
@@ -78,6 +86,7 @@ const TaskList = () => {
         opacity: 0.5
       });
       if (modalStatus === "editing") {
+        // Find the task by the given ID 
         const task = tasks.find(({ id }: Task) => id === activeId);
         if (task) {
           const { id = "", ...rest } = { ...task };
@@ -91,15 +100,17 @@ const TaskList = () => {
         }
       }
     } else {
+      // Unset form values when closing the modal 
       formik.setValues({
         name: "",
-        deadline: undefined,
+        deadline: "" as unknown,
         description: ""
-      });
+      } as TaskValues);
       animate(modalCont.current as HTMLDivElement, {
         left: "100%"
       })
     }
+    // eslint-disable-next-line
   }, [modalStatus])
 
   return (
